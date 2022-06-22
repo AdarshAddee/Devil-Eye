@@ -38,7 +38,9 @@ For Command-Line-Interface, use command ``devil-eye [-arg]``
 
 # Available Args:
 `` devil-eye -r ``  -  To install requirements 
+
 `` devil-eye -h ``  - Visit help page
+
 `` devil-eye -t [banner name] [user name] `` - To install Devil-Eye in Termux 
 
 # One Line Install
