@@ -36,6 +36,11 @@ For Graphical Mode, use command ``devil-eye``
 
 For Command-Line-Interface, use command ``devil-eye [-arg]``
 
+# Available Args:
+`` devil-eye -r ``  -  To install requirements 
+`` devil-eye -h ``  - Visit help page
+`` devil-eye -t [banner name] [user name] `` - To install Devil-Eye in Termux 
+
 # One Line Install
 ``` 
 apt update && apt upgrade -y && pkg install git -y && git clone https://github.com/adarshaddee/Devil-Eye.git 
