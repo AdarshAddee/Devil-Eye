@@ -2,7 +2,7 @@
 > Do you wanna feel like a Geek? Devil-Eye can customize your termux and can add devil-eye banner in termux, which looks cool and awesome and give feel like a Geek.
 
 <center>
-  <img src="https://github.com/adarshaddee/Devil-Eye/blob/main/img/img.png" width="100%"/>
+  <img src="https://github.com/adarshaddee/Devil-Eye/blob/main/img/img.png" width="100%" title="Devil-Eye For Termux" />
 </center>
 
 # Install
