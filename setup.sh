@@ -1,4 +1,4 @@
 #!/bin/bash
 
-. ./devil-eye --source-only
+. ./devil-eye -r
 

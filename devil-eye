@@ -5,18 +5,20 @@ gr="\e[1;32m"
 cy="\e[1;36m"
 yl="\e[1;33m"
 
+name=$( basename $0 )
+
 banner(){
 
-    figlet -t "     BANNER" | lolcat
-    echo -e "\n             ${gr}YouTube ${rd}|${cy} Mr Idealhat\n"
+    cowsay -f eyes "Devil - Eye"
+    echo -e "\n             ${gr}YouTube ${rd}|${cy} Mr Idealhat"
     echo -e "                ${yl} By ${gr}Adarsh Addee\n"
 
 }
 
 folder(){
 
-    if [ ! -d /data/data/com.termux/files/usr/etc/devil-eye ]; then
-	mkdir /data/data/com.termux/files/usr/etc/devil-eye
+    if [ ! -d "/data/data/com.termux/files/usr/etc/${name}" ]; then
+	mkdir "/data/data/com.termux/files/usr/etc/${name}"
 
     fi
     file
@@ -25,20 +27,23 @@ folder(){
 
 file(){
 
-    if [[ ! -f /data/data/com.termux/files/usr/bin/devil-eye ]]; then
-	cp -f devil-eye /data/data/com.termux/files/usr/bin/devil-eye
+    if [[ ! -f "/data/data/com.termux/files/usr/bin/${name}" ]]; then
+	cp -f "${name}" "/data/data/com.termux/files/usr/bin"
+    fi
+
+    if [[ -f "${PREFIX}/etc/motd" ]]; then
+	mv "${PREFIX}/etc/motd" "${PREFIX}/etc/motd.old"
     fi
 
 }
 
 require(){
     clear
-    echo "Installing dependencies!"
+    echo -e "\033[1;33m[*] Installing dependencies!"
     apt update && apt upgrade -y && apt install toilet figlet cowsay ruby -y && gem install lolcat
-    echo
-
-    echo "[*] Setup completed successfully!" | lolcat
-    echo "[#] Now, you can execute devil-eye file to start Devil-Eye!" | lolcat
+    clear
+    echo -e "\e[1;33m[*] Setup completed successfully!"
+    echo "[#] Now, you can execute devil-eye file to start Devil-Eye!"
 
     echo
 
@@ -46,30 +51,30 @@ require(){
 
 textcli(){
     folder
-    echo "${1}" > /data/data/com.termux/files/usr/etc/devil-eye/banner.txt
-    echo "${2}" > /data/data/com.termux/files/usr/etc/devil-eye/name.txt
+
+    echo "${1}" > "/data/data/com.termux/files/usr/etc/${name}/name.txt"
+    echo "${2}" > "/data/data/com.termux/files/usr/etc/${name}/banner.txt"
 }
 
 text(){
     clear; banner;
     echo -e "\n${gr}Enter Your Name: ${cy}"
-    read name
-    echo
-    echo -e "${gr}Enter Banner Name: ${cy}"
-    read banner
-    echo
+    read user
 
-    textcli "${banner}" "${name}"
+    echo -e "\n${gr}Enter Banner Name: ${cy}"
+    read banner
+
+    textcli "${user}" "${banner}"
 }
 
 filemanage(){
 
-    if [[ ! -f /data/data/com.termux/files/usr/etc/devil-eye/bash.bashrc_old ]]; then
-	cp -f /data/data/com.termux/files/usr/etc/bash.bashrc /data/data/com.termux/files/usr/etc/devil-eye/bash.bashrc_old;
+    if [[ ! -f "/data/data/com.termux/files/usr/etc/${name}/bash.bashrc_old" ]]; then
+	cp -f "/data/data/com.termux/files/usr/etc/bash.bashrc" "/data/data/com.termux/files/usr/etc/${name}/bash.bashrc_old";
     fi
 
     rm /data/data/com.termux/files/usr/etc/bash.bashrc
-    cp -f /data/data/com.termux/files/usr/etc/devil-eye/bash.bashrc_old /data/data/com.termux/files/usr/etc/bash.bashrc
+    cp -f "/data/data/com.termux/files/usr/etc/${name}/bash.bashrc_old" /data/data/com.termux/files/usr/etc/bash.bashrc
 
 }
 
@@ -89,15 +94,9 @@ help(){
 
 setting(){
     filemanage;
-    echo "clear; cowsay -f eyes < /data/data/com.termux/files/usr/etc/devil-eye/banner.txt | lolcat" >> /data/data/com.termux/files/usr/etc/bash.bashrc
-    echo "toilet -f smblock --filter border:metal < /data/data/com.termux/files/usr/etc/devil-eye/name.txt | lolcat" >> /data/data/com.termux/files/usr/etc/bash.bashrc
+    echo "( cowsay -f eyes < /data/data/com.termux/files/usr/etc/${name}/banner.txt && toilet -f smblock --filter border:metal < /data/data/com.termux/files/usr/etc/${name}/name.txt ) | lolcat" >> /data/data/com.termux/files/usr/etc/bash.bashrc
     clear;
-    figlet -t -c "Done!!" | lolcat
-
-    echo -e "\n              ${gr}YouTube ${rd}|${cy} Mr Idealhat\n"
-    echo -e "                 ${yl} By ${gr}Adarsh Addee\n"
-
-
+    ( cowsay -f eyes "Success Message!" && toilet -f smblock --filter border:metal "                  Done                  " ) | lolcat
 }
 
 
@@ -120,10 +119,4 @@ esac
 
 }
 
-
-if [[ $1 == "--source-only" ]]; then
-    require
-else
-    main $1
-fi
-
+main "${@}"
